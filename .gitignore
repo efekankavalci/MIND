@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Environment files
+.env
+.venv/
+venv/
+ENV/
+env/
+
+# VSCode settings
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Python virtual environment
+*.egg-info/
+*.egg
+*.log
+
+# Ignore the entire mind_adni1_bl_tiny directory
+mind_adni1_bl_tiny/
+
+# Notebook outputs
+# *.ipynb
+
+# Ignore model checkpoints or large temporary files
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+
+# Ignore any user-specific hidden files
+*.swp
+
+# zip files 
+*.zip
