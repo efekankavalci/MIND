@@ -28,7 +28,7 @@ Thumbs.db
 # Ignore the entire mind_adni1_bl_tiny directory
 mind_adni1_bl_tiny/
 mind_adni1_bl/
-
+tübitak/
 
 # Notebook outputs
 # *.ipynb
