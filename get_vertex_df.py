@@ -149,18 +149,32 @@ def get_vertex_df(surf_dir, features, parcellation):
     unknown_regions = [x for x in combined_regions if (('?' in x) | ('unknown' in x) | ('Unknown' in x) | ('Medial_Wall' in x) | (len(x) == 3))]
     combined_regions = np.array([x for x in combined_regions if x not in unknown_regions])
 
+    # # OBSERVATIONS
+    # if len(combined_regions) != 68:
+    #     print("USED REGIONS:")
+    #     print(len(used_regions_l), len(used_regions_r))
+    #     print("USED LABELS:")
+    #     print(len(used_labels_l), len(used_labels_r))  
+    #     print("REGION NAMES")
+    #     print(len(lh_region_names), len(rh_region_names))
+    #     print("number of regions according to vertex data for lh:", np.unique(lh_annot[0]), np.unique(lh_annot[0]).shape )
+    #     print("number of regions according to vertex data for rh:", np.unique(rh_annot[0]), np.unique(rh_annot[0]).shape )
+    #     # print("annot", rh_annot[0],list(rh_convert_dict.keys()))
+    #     print(len(lh_convert_dict), len(rh_convert_dict))
+    # else:
+    #     print(used_regions_l, used_regions_r)
     vertex_data_dict = defaultdict()
 
     #Now load up all the vertex-level data!
     for hemi in ['lh','rh']:
-        print(hemi)
+        # print(hemi)
         hemi_data_dict = defaultdict()
 
         if hemi == 'lh':
-            print('Loading left hemisphere data:')
+            # print('Loading left hemisphere data:')
 
             for i, lh_feature_loc in enumerate(lh_feature_locs):
-                print(lh_feature_loc)
+                # print(lh_feature_loc)
                 #check for mgh/mgz format vs regular curv files
                 if lh_feature_loc.endswith('mgh') or lh_feature_loc.endswith('mgz'):
                     hemi_data_dict['Feature_' + str(i)] = load(lh_feature_loc).get_fdata().flatten()
@@ -168,22 +182,22 @@ def get_vertex_df(surf_dir, features, parcellation):
                     hemi_data_dict['Feature_' + str(i)] = read_morph_data(lh_feature_loc)
 
         elif hemi == 'rh':
-            print('Loading right hemisphere data:')
+            # print('Loading right hemisphere data:')
 
             for i, rh_feature_loc in enumerate(rh_feature_locs):
-
+                # print(rh_feature_loc)
                 if rh_feature_loc.endswith('mgh') or rh_feature_loc.endswith('mgz'):
                     hemi_data_dict['Feature_' + str(i)] = load(rh_feature_loc).get_fdata().flatten()
                 else:
                     hemi_data_dict['Feature_' + str(i)] = read_morph_data(rh_feature_loc)
 
         used_features = list(hemi_data_dict.keys())
-        print(used_features)
+        # print(used_features)
         hemi_data = np.zeros((len(used_features) + 1, len(annot_dict[hemi][0])))
 
         hemi_data[0] = annot_dict[hemi][0]
         for i, feature in enumerate(used_features):
-            print(i, feature)
+            # print(i, feature)
             hemi_data[i + 1] = hemi_data_dict[feature]
         
         col_names = ['Label'] + used_features
@@ -198,6 +212,6 @@ def get_vertex_df(surf_dir, features, parcellation):
     vertex_data = pd.concat([vertex_data_dict['lh'], vertex_data_dict['rh']], ignore_index = True)
 
     #Output data
-    print("features used: ")
-    print(used_features)
+    # print("features used: ")
+    # print(used_features)
     return vertex_data, combined_regions, used_features

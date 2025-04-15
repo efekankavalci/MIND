@@ -18,6 +18,8 @@ def compute_MIND(surf_dir, features, parcellation, filter_vertices=False, resamp
 	columns = ['Label'] + features_used
 	
 	feature_conv_dict = dict(zip(list(features), list(features_used)))
+	print('Feature conversion dictionary:')
+	print(feature_conv_dict)
 	#The filter_vertices parameter determines you want to filter out all the non-biologically feasible vertices (i.e. any of volume, surface area or cortical thickness equalling zero)	
 	if filter_vertices == True:
 
